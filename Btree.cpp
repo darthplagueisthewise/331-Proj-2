@@ -9,10 +9,10 @@ Btree::Btree()
 	order = 6;
 }
 
-Btree::Btree(Node *p_nptr)
+Btree::Btree(Node *p_nptr, int p_int)
 {
 	root = p_nptr;
-	order = 6;
+	order = p_int;
 }
 
 Btree::~Btree()
@@ -33,18 +33,20 @@ void Btree::build_tree(vector<Record> p_vect)
 	}
 
 	root = new Node(p_vect);
-	int curr_node_size = root->get_vector_size();
-
-	if (curr_node_size > order)
+	
+	if (p_vect.size() > order)
 	{
-		split_node(curr_node_size);
+		split_node(&root);
 	}
 }
 
 /* split_node public function */
-/* DISCLAIMER: THIS FUNCTION CURRENTLY IS ONLY BEING PROGRAMMED TO SPLIT THE ROOT NODE (it is a wip thank you)  */  
-void Btree::split_node(int p_size)
+/* DISCLAIMER: THIS FUNCTION MAY SPONTANEOUSLY COMBUST IF YOU TOUCH THE WRONG THING */
+/* I AM PRETTY SURE THERE IS A METHOD TO MY MADNESS 								*/  
+void Btree::split_node(Node **p_node)
 {
+	int node_size = *p_node->get_vector_size();
+
 	/* 	
 		The code below does the following:
 		Assume the size of the node we need to split is 17 (17 > order)
@@ -56,31 +58,68 @@ void Btree::split_node(int p_size)
 		4 + 4 + 3 + 3 + 3 = 17
 	*/
 
-	int threes = p_size/(order/2); 							// Node must be at least order/2 in size, we assume order is an even number
-	int fours = p_size%(order/2);
+	int threes = node_size/3; 							// Node must be at least order/2 in size
+	int fours = node_size%3;							// We assume order is 6 so the 3 comes from 6/2
 	threes -= fours;
 
 	/* Threes and Fours are now set */
 
-	Node *temp = root;
-	root = new Node();
+	Node *temp = *pnode;
+	vector<Record> nodeVec = *p_node->get_record_vector();
+	*p_node = new Node();
  
- 	/* We are assuming the current root is already sorted */
+ 	/* We are assuming the current root is already sorted 		*/
+ 	/* Create however many nodes of size 4 that we need 		*/ 
 	for (int i = 0; i < fours; ++i)
 	{
 		vector<Record> nvect;
-		for (int j = (i * 4); j < ((i+1)*4); ++j)
+		for (int j = 0; j < 4; ++j)							// Nodes of size 4
 		{
-			nvect.push_back(temp->get_record(i));
+			nvect.push_back(nodeVec.at(j));
 		}
 
-		Node *temp_ptr = new Node(nvect); 					// dynamically allocate Node so that it lives being function scope => otherwise dangling pointer = badddddd
+		Node *temp_ptr = new Node(nvect); 					// dynamically allocate Node so that it lives beyond the function scope => otherwise dangling pointer = badddddd
 
 		var greatest_rec = nvect.end()-1; 					// last element (assuming sorted) in new node is greatest
 		int greatest_rec_num = greatest_rec->get_num();
 		string greatest_rec_str = greatest_rec->get_str();
 		
 		Record splitter(greatest_rec_num, greatest_rec_str, temp_ptr);
-		root->add_record()
+		*pnode->add_record(splitter);
+
+		nodeVec.erase(nodeVec.begin(), nodeVec.begin()+4)
 	}
+
+	/* Create however many nodes of size 3 that we need 		*/
+	for (int i = 0; i < threes; ++i)
+	{
+		vector<Record> nvect;
+		for (int j = 0; j < 3; ++j)							// Nodes of size 3
+		{
+			nvect.push_back(nodeVec.at(j));
+		}
+
+		Node *temp_ptr = new Node(nvect); 					// dynamically allocate Node so that it lives beyond the function scope => otherwise dangling pointer = badddddd
+
+		var greatest_rec = nvect.end()-1; 					// last element (assuming sorted) in new node is greatest
+		int greatest_rec_num = greatest_rec->get_num();
+		string greatest_rec_str = greatest_rec->get_str();
+		
+		Record splitter(greatest_rec_num, greatest_rec_str, temp_ptr);
+		root->add_record(splitter);
+
+		nodeVec.erase(nodeVec.begin(), nodeVec.begin()+3);
+	}
+
+	if (*p_node->get_vector_size > order)
+	{
+		split_node(p_node);
+	}
+
 }
+
+
+
+
+
+

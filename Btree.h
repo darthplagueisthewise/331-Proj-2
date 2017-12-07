@@ -16,11 +16,12 @@ class BTree
 	public:
 
 		Btree();
-		Btree(Node*);
+		Btree(Node*, int);
 		~Btree();
 
 		void add_record(const Record&);
 		void build_tree(std::vector<Record>)
+		void split_node(Node**)
 };
 
 #endif
