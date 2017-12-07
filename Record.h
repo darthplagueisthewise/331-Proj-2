@@ -21,6 +21,10 @@ class Record
 		Record(int, std::string, Node*);
 		~Record();
 
+		/* Getter Functions */
+		int get_num() const;
+		std::string get_str() const;
+
 };
 
 #endif
