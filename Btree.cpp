@@ -41,7 +41,8 @@ void Btree::build_tree(vector<Record> p_vect)
 	}
 }
 
-/* split_node public function */ 
+/* split_node public function */
+/* DISCLAIMER: THIS FUNCTION CURRENTLY IS ONLY BEING PROGRAMMED TO SPLIT THE ROOT NODE (it is a wip thank you)  */  
 void Btree::split_node(int p_size)
 {
 	/* 	
@@ -55,7 +56,7 @@ void Btree::split_node(int p_size)
 		4 + 4 + 3 + 3 + 3 = 17
 	*/
 
-	int threes = p_size/(order/2); 				// Node must be at least order/2 in size, we assume order is an even number
+	int threes = p_size/(order/2); 							// Node must be at least order/2 in size, we assume order is an even number
 	int fours = p_size%(order/2);
 	threes -= fours;
 
@@ -63,9 +64,23 @@ void Btree::split_node(int p_size)
 
 	Node *temp = root;
 	root = new Node();
-
+ 
+ 	/* We are assuming the current root is already sorted */
 	for (int i = 0; i < fours; ++i)
 	{
+		vector<Record> nvect;
+		for (int j = (i * 4); j < ((i+1)*4); ++j)
+		{
+			nvect.push_back(temp->get_record(i));
+		}
 
+		Node *temp_ptr = new Node(nvect); 					// dynamically allocate Node so that it lives being function scope => otherwise dangling pointer = badddddd
+
+		var greatest_rec = nvect.end()-1; 					// last element (assuming sorted) in new node is greatest
+		int greatest_rec_num = greatest_rec->get_num();
+		string greatest_rec_str = greatest_rec->get_str();
+		
+		Record splitter(greatest_rec_num, greatest_rec_str, temp_ptr);
+		root->add_record()
 	}
 }
