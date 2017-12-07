@@ -17,8 +17,10 @@ class BTree
 
 		Btree();
 		Btree(Node*);
+		~Btree();
 
-		void add_record_to_node(Record);
+		void add_record(const Record&);
+		void build_tree(std::vector<Record>)
 };
 
 #endif

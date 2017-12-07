@@ -1,4 +1,4 @@
-/* record.h  */
+/* Record.h  */
 /* record class */
 
 #ifndef _RECORD_H_
@@ -19,6 +19,7 @@ class Record
 		Record();
 		Record(int, std::string);
 		Record(int, std::string, Node*);
+		~Record();
 
 };
 

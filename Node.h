@@ -18,6 +18,9 @@ class Node
 		Node();
 		Node(std::vector<Record>);
 
+		std::vector<Record> get_record_vector();
+		int get_vector_size();
+
 };
 
 #endif
