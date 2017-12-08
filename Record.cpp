@@ -1,3 +1,13 @@
+/**
+ * @file Record.cpp
+ * @author Josh Everly
+ * @author Luke Krause
+ * @author Sterling Peschl
+ * @author Jeremy Nelson-Stalmer
+ * @author Tyler Purnick
+ *
+ */
+
 /* Record.cpp  */
 
 #include "Record.h"

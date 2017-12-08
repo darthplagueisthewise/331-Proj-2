@@ -1,28 +1,126 @@
-/* Btree.cpp  */
+/**
+ * @file Btree.cpp
+ * @author Josh Everly
+ * @author Luke Krause
+ * @author Sterling Peschl
+ * @author Jeremy Nelson-Stalmer
+ * @author Tyler Purnick
+ *
+ * This file contains the methods that build and modify a B+ tree
+ *
+ */
 
 #include "Btree.h"
 using namespace std;
 
+/**
+ * @brief Default constructor to initialize values
+ *
+ * @returns void
+ */
 Btree::Btree()
 {
 	root = nullptr;
 	order = 6;
 }
 
+/**
+ * @brief Constructor to initialize values
+ * @param p_nptr is a node pointer
+ * @param p_int is an integer that stores the order value
+ * @returns void
+ */
 Btree::Btree(Node *p_nptr, int p_int)
 {
 	root = p_nptr;
 	order = p_int;
 }
 
+/**
+ * @brief Deconstructor
+ *
+ * @returns void
+ */
 Btree::~Btree()
 {
 	delete root;
 }
 
-void Btree::add_record(const Record& p_record)
+/**
+ * @brief Fills the root node with keys until it has to split
+ * @param p_record is a record to be added to the root
+ *
+ * @returns void
+ */
+void Btree::fill_root(const Record& p_record)
 {
+	root->add_record(p_record);
+}
 
+/**
+ * @brief Inserts records into the B+ tree
+ * @param p_record is a record to be added
+ *
+ * @returns void
+ */
+void Btree::insert(const Record& p_record)
+{
+	Node *currNode = root;
+	bool done = false;
+	bool atRoot = false;
+	while (!done)	// for each node
+	{
+		for (int i = 0; i < currNode->get_vector_size(); ++i)	// Scan for each record in node
+		{
+			if (p_record < currNode->get_record(i))		// If the record is less than
+			{
+				if (currNode.get_child() != NULL)	// If the record is a parent
+				{
+					currNode = (currNode.get_record(i))->get_child();
+					break;
+				}
+				else 		// its a leaf
+				{
+					currNode->add_record(p_record);
+					if (currNode->get_vector_size() == order)	// She's full
+					{
+						split(currNode);	// SPLIT HER
+					}
+					done = true;
+					break;
+				}
+			}
+			else if ( i == currNode->get_vector_size() - 1)	// Last record in node
+			{
+				if (currNode.get_child() != NULL)		// If the record is a parent
+				{
+					currNode = (currNode.get_record(i))->get_child();
+					break;
+				}
+				else 		// its a leaf
+				{
+					currNode->add_record(p_record);
+					if (currNode->get_vector_size() == order)	// She's full
+					{
+						split(currNode);	// SPLIT HER
+						done = true;
+						break;
+					}
+					
+					atRoot = false;
+					while (!atRoot)
+					{
+						currNode->set_parent(p_record);
+						currNode = currNode->get_parent_node();
+						if ( currNode->get_parent_node() == NULL)
+							atRoot = true;	
+					}
+					done = true;
+					break;
+				}
+			}
+		}
+	}
 }
 
 *Node Btree::searchforparent(Node* currNode, Node *childptr)
@@ -60,12 +158,15 @@ void Btree::build_tree(vector<Record> p_vect)
 	}
 }
 
-/* split_node public function */
-/* DISCLAIMER: THIS FUNCTION MAY SPONTANEOUSLY COMBUST IF YOU TOUCH THE WRONG THING */
-/* I AM PRETTY SURE THERE IS A METHOD TO MY MADNESS 								*/  
-void Btree::split_node(Node *p_node)
+/**
+ * @brief Splits a node and adds the new keys to the parent node
+ * @param p_node is the node to be slit
+ *
+ * @returns void
+ */ 								*/  
+void Btree::split_node(Node **p_node)
 {
-	int node_size = p_node->get_vector_size();
+	int node_size = *p_node->get_vector_size();
 
 	/* 	
 		The code below does the following:
@@ -100,7 +201,7 @@ void Btree::split_node(Node *p_node)
 		parent_pointer->erase_record(record_to_be_erased);
 	}
 
-	
+
  	/* We are assuming the current root is already sorted 		*/
  	/* Create however many nodes of size 4 that we need 		*/ 
 	for (int i = 0; i < fours; ++i)

@@ -1,3 +1,13 @@
+/**
+ * @file Node.h
+ * @author Josh Everly
+ * @author Luke Krause
+ * @author Sterling Peschl
+ * @author Jeremy Nelson-Stalmer
+ * @author Tyler Purnick
+ *
+ */
+
 /* Node.h  */
 /* Node class */
 

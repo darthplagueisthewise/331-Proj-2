@@ -1,3 +1,13 @@
+/**
+ * @file Record.h
+ * @author Josh Everly
+ * @author Luke Krause
+ * @author Sterling Peschl
+ * @author Jeremy Nelson-Stalmer
+ * @author Tyler Purnick
+ *
+ */
+
 /* Record.h  */
 /* record class */
 
@@ -23,6 +33,7 @@ class Record
 
 		/* Getter Functions */
 		int get_num() const;
+		Node* get_child(){ return nptr; } 
 		std::string get_str() const;
 
 };
