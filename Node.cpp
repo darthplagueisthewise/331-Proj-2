@@ -75,7 +75,7 @@ Record Node::get_record(const int p_loc) const
  * @param 
  * @return 
  */
-Node* Node::get_record(Node* p_nptr) const
+Record* Node::get_record(Node* p_nptr) const
 {
 	for (Record r : record_vector)
 	{
