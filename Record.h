@@ -23,6 +23,7 @@ class Record
 
 		/* Getter Functions */
 		int get_num() const;
+		Node* get_child(){ return nptr; } 
 		std::string get_str() const;
 
 };
