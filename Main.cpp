@@ -1,3 +1,13 @@
+/**
+ * @file Btree.cpp
+ * @author Josh Everly
+ * @author Luke Krause
+ * @author Sterling Peschl
+ * @author Jeremy Nelson-Stalmer
+ * @author Tyler Purnick
+ *
+ */
+
 /* Main.cpp		*/
 
 #include "Btree.h"
