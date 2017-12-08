@@ -55,17 +55,26 @@ void Node::erase_record(Record *p_rptr)
  * 
  * @return Returns the node's record vector
  */
-
 vector<Record> Node::get_record_vector() const
 {
 	return record_vector;
 }
 
+/**
+ * @brief Returns the string value of a specified record
+ * @param The location in the node of the record to be returned
+ * @return Returns the record at the specified location
+ */
 Record Node::get_record(const int p_loc) const
 {
 	return record_vector.at(p_loc);
 }
 
+/**
+ * @brief 
+ * @param 
+ * @return 
+ */
 Node* Node::get_record(Node* p_nptr) const
 {
 	for (Record r : record_vector)
@@ -78,6 +87,11 @@ Node* Node::get_record(Node* p_nptr) const
 	return nullptr;
 }
 
+/**
+ * @brief Returns the number of records in the node
+ * 
+ * @return The size of the current node
+ */
 int Node::get_vector_size() const
 {
 	return record_vector.size();
