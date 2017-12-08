@@ -34,7 +34,7 @@ class Node
 		Node(std::vector<Record>);
 
 		void add_record(const Record&);
-		void erase_record(Record*)
+		void erase_record(Record*);
 
 		std::vector<Record> get_record_vector() const;
 		Record get_record(const int) const;
