@@ -29,6 +29,7 @@ void Btree::insert(const Record& p_record)
 {
 	Node *currNode = root;
 	bool done = false;
+	bool atRoot = false;
 	while (!done)	// for each node
 	{
 		for (int i = 0; i < currNode->get_vector_size(); ++i)	// Scan for each record in node
@@ -43,6 +44,10 @@ void Btree::insert(const Record& p_record)
 				else 		// its a leaf
 				{
 					currNode->add_record(p_record);
+					if (currNode->get_vector_size() == order)	// She's full
+					{
+						split(currNode);	// SPLIT HER
+					}
 					done = true;
 					break;
 				}
@@ -57,25 +62,24 @@ void Btree::insert(const Record& p_record)
 				else 		// its a leaf
 				{
 					currNode->add_record(p_record);
-					while (not root)
+					if (currNode->get_vector_size() == order)	// She's full
+					{
+						split(currNode);	// SPLIT HER
+						done = true;
+						break;
+					}
+					
+					atRoot = false;
+					while (!atRoot)
 					{
 						currNode->set_parent(p_record);
 						currNode = currNode->get_parent_node();
+						if ( currNode->get_parent_node() == NULL)
+							atRoot = true;	
 					}
 					done = true;
 					break;
 				}
-			}
-		}
-	}
-	
-	for (int i = 0; i < root->get_vector_size(); ++i)	// Scan root
-	{
-		if (p_record < root->get_record(i))		// If current record is less than record in root
-		{
-			if (root->get_vector_size() < order)	// If size is less
-			{
-				
 			}
 		}
 	}
