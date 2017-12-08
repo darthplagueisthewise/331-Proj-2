@@ -55,6 +55,10 @@ Btree::~Btree()
 void Btree::fill_root(const Record& p_record)
 {
 	root->add_record(p_record);
+	if (root->get_vector_size() == order + 1)	// If root is ready to split
+	{
+		split(root);
+	}
 }
 
 /**
