@@ -6,6 +6,8 @@
  * @author Jeremy Nelson-Stalmer
  * @author Tyler Purnick
  *
+ * This file contains the specifications for the methods to access and store data in a node
+ *
  */
 
 /* Node.h  */
@@ -17,6 +19,9 @@
 #include "Record.h"
 #include <vector>
 
+/**
+ * @brief This class contains a vector to store records as well as methods to access and modify that vector
+ */
 class Node
 {
 	private:
