@@ -114,9 +114,17 @@ void Btree::insert(const Record& p_record)
 					atRoot = false;
 					while (!atRoot)
 					{
-						currNode->set_parent(p_record);
-						currNode = currNode->get_parent_node();
-						if ( currNode->get_parent_node() == NULL)
+						Node *parentPtr = searchforparent(root, currNode);
+						for (Record rec : parentPtr->get_record_vector())
+						{
+							if (rec.get_child() == currNode)
+							{
+								rec.set_string(p_record.get_str());
+								break;
+							}
+						}
+						currNode = parentPtr;
+						if ( currNode == root)
 							atRoot = true;	
 					}
 					done = true;
