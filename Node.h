@@ -12,7 +12,8 @@ class Node
 	private:
 
 		std::vector<Record> record_vector;
-
+		Node *parent_node;
+		
 	public:
 
 		Node();

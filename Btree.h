@@ -19,10 +19,9 @@ class BTree
 		Btree(Node*, int);
 		~Btree();
 
-		void fill_root(const Record&, int i);
-		void insert(const Record&);
-		void build_tree(std::vector<Record>);
-		void split_node(Node**);
+		void add_record(const Record&);
+		void build_tree(std::vector<Record>)
+		void split_node(Node**)
 };
 
 #endif
