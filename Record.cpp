@@ -1,5 +1,5 @@
 /**
- * @file Btree.cpp
+ * @file Record.cpp
  * @author Josh Everly
  * @author Luke Krause
  * @author Sterling Peschl
