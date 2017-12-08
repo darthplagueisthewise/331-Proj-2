@@ -37,6 +37,10 @@ class Record
 
 		/* Getter Functions */
 		int get_num() const;
+		/**
+		 * @brief This function returns the node pointer to the record's child
+		 * @return The node pointer to the record's child
+		 */
 		Node* get_child(){ return nptr; } 
 		std::string get_str() const;
 
