@@ -4,6 +4,7 @@
  * @author Luke Krause
  * @author Sterling Peschl
  * @author Jeremy Nelson-Stalmer
+ * @author Tyler Purnick
  *
  * This file contains the methods that build and modify a B+ tree
  *
