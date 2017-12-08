@@ -135,6 +135,12 @@ void Btree::insert(const Record& p_record)
 	}
 }
 
+-/**
+ - * @brief Given a node, this method returns a node pointer to it's parent node
+ - * @param currNode is the starting node from where the search begins
+ - * @param childptr is the node to find the parent of
+ - * @return A node pointer to the parent of childptr
+ - */
 *Node Btree::searchforparent(Node* currNode, Node *childptr)
 {
 	if (currNode == nullptr)
