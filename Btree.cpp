@@ -20,23 +20,9 @@ Btree::~Btree()
 	delete root;
 }
 
-void Btree::fill_root(const Record& p_record)
+void Btree::add_record(const Record& p_record)
 {
-	root->add_record(p_record);
-}
 
-void Btree::insert(const Record& p_record)
-{
-	for (int i = 0; i < root->get_vector_size(); ++i)	// Scan root
-	{
-		if (p_record < root->get_record(i))		// If current record is less than record in root
-		{
-			if (root->get_vector_size() < order)	// If size is less
-			{
-				
-			}
-		}
-	}
 }
 
 void Btree::build_tree(vector<Record> p_vect)
@@ -57,9 +43,9 @@ void Btree::build_tree(vector<Record> p_vect)
 /* split_node public function */
 /* DISCLAIMER: THIS FUNCTION MAY SPONTANEOUSLY COMBUST IF YOU TOUCH THE WRONG THING */
 /* I AM PRETTY SURE THERE IS A METHOD TO MY MADNESS 								*/  
-void Btree::split_node(Node **p_node)
+void Btree::split_node(Node *p_node)
 {
-	int node_size = *p_node->get_vector_size();
+	int node_size = p_node->get_vector_size();
 
 	/* 	
 		The code below does the following:
@@ -78,9 +64,9 @@ void Btree::split_node(Node **p_node)
 
 	/* Threes and Fours are now set */
 
-	Node *temp = *pnode;
+	//Node *temp = pnode;
 	vector<Record> nodeVec = *p_node->get_record_vector();
-	*p_node = new Node();
+	//*p_node = new Node();
  
  	/* We are assuming the current root is already sorted 		*/
  	/* Create however many nodes of size 4 that we need 		*/ 
@@ -125,7 +111,7 @@ void Btree::split_node(Node **p_node)
 		nodeVec.erase(nodeVec.begin(), nodeVec.begin()+3);
 	}
 
-	if (*p_node->get_vector_size > order)
+	if (*6p_node->get_vector_size > order)
 	{
 		split_node(p_node);
 	}
