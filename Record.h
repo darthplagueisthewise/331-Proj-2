@@ -6,6 +6,7 @@
  * @author Jeremy Nelson-Stalmer
  * @author Tyler Purnick
  *
+ * This file contains the specifications for the methods to store data representing a record
  */
 
 /* Record.h  */
@@ -20,9 +21,9 @@ class Record
 {
 	private:
 
-		int num;
-		std::string str;
-		Node *nptr;
+		int num;		///< The record's integer value
+		std::string str;	///< The record's string value
+		Node *nptr;		///< Node pointer pointing to the record's child node (NULL if childless)
 
 	public:
 
