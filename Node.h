@@ -12,17 +12,18 @@ class Node
 	private:
 
 		std::vector<Record> record_vector;
-		Node *parent_node;
-		
+
 	public:
 
 		Node();
 		Node(std::vector<Record>);
 
 		void add_record(const Record&);
+		void erase_record(Record*)
 
 		std::vector<Record> get_record_vector() const;
 		Record get_record(const int) const;
+		Node* get_record(Node*) const;
 		int get_vector_size() const;
 
 };

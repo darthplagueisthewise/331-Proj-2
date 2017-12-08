@@ -20,8 +20,9 @@ class BTree
 		~Btree();
 
 		void add_record(const Record&);
-		void build_tree(std::vector<Record>)
-		void split_node(Node**)
+		void build_tree(std::vector<Record>);
+		void split_node(Node*);
+		Node* search_for_parent(Node*, Node*)
 };
 
 #endif
