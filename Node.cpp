@@ -6,7 +6,7 @@
  * @author Jeremy Nelson-Stalmer
  * @author Tyler Purnick
  *
- * This file contains the methods to access data in a node
+ * This file contains the methods to access and store data in a node
  *
  */
 
