@@ -42,7 +42,14 @@ class Record
 		 * @return The node pointer to the record's child
 		 */
 		Node* get_child(){ return nptr; } 
+	
 		std::string get_str() const;
+	
+		/**
+		 * @brief This function sets the string value of the record to a new value and updates the integer value
+		 * @param newStr is the new string value to put into the record
+		 */
+		void set_string(std::string newStr) { str = newStr; num = newStr.strlen();}
 
 };
 
