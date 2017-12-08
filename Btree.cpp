@@ -20,9 +20,23 @@ Btree::~Btree()
 	delete root;
 }
 
-void Btree::add_record(const Record& p_record)
+void Btree::fill_root(const Record& p_record)
 {
+	root->add_record(p_record);
+}
 
+void Btree::insert(const Record& p_record)
+{
+	for (int i = 0; i < root->get_vector_size(); ++i)	// Scan root
+	{
+		if (p_record < root->get_record(i))		// If current record is less than record in root
+		{
+			if (root->get_vector_size() < order)	// If size is less
+			{
+				
+			}
+		}
+	}
 }
 
 void Btree::build_tree(vector<Record> p_vect)
