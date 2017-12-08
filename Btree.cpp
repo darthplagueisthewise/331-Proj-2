@@ -86,9 +86,9 @@ void Btree::insert(const Record& p_record)
 				else 		// its a leaf
 				{
 					currNode->add_record(p_record);
-					if (currNode->get_vector_size() == order)	// She's full
+					if (currNode->get_vector_size() == order + 1)	// The node is overflowing
 					{
-						split(currNode);	// SPLIT HER
+						split(currNode);	// Split the node
 					}
 					done = true;
 					break;
@@ -104,9 +104,9 @@ void Btree::insert(const Record& p_record)
 				else 		// its a leaf
 				{
 					currNode->add_record(p_record);
-					if (currNode->get_vector_size() == order)	// She's full
+					if (currNode->get_vector_size() == order + 1)	// The node is overflowing
 					{
-						split(currNode);	// SPLIT HER
+						split(currNode);	// Split the node
 						done = true;
 						break;
 					}
