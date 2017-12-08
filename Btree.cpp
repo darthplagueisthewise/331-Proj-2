@@ -1,30 +1,67 @@
-/* Btree.cpp  */
+/**
+ * @file Btree.cpp
+ * @author Josh Everly
+ * @author Luke Krause
+ * @author Sterling Peschl
+ * @author Jeremy Nelson-Stalmer
+ *
+ * This file contains the methods that build and modify a B+ tree
+ *
+ */
 
 #include "Btree.h"
 using namespace std;
 
+/**
+ * @brief Default constructor to initialize values
+ *
+ * @returns void
+ */
 Btree::Btree()
 {
 	root = nullptr;
 	order = 6;
 }
 
+/**
+ * @brief Constructor to initialize values
+ * @param p_nptr is a node pointer
+ * @param p_int is an integer that stores the order value
+ * @returns void
+ */
 Btree::Btree(Node *p_nptr, int p_int)
 {
 	root = p_nptr;
 	order = p_int;
 }
 
+/**
+ * @brief Deconstructor
+ *
+ * @returns void
+ */
 Btree::~Btree()
 {
 	delete root;
 }
 
+/**
+ * @brief Fills the root node with keys until it has to split
+ * @param p_record is a record to be added to the root
+ *
+ * @returns void
+ */
 void Btree::fill_root(const Record& p_record)
 {
 	root->add_record(p_record);
 }
 
+/**
+ * @brief Inserts records into the B+ tree
+ * @param p_record is a record to be added
+ *
+ * @returns void
+ */
 void Btree::insert(const Record& p_record)
 {
 	Node *currNode = root;
@@ -100,9 +137,12 @@ void Btree::build_tree(vector<Record> p_vect)
 	}
 }
 
-/* split_node public function */
-/* DISCLAIMER: THIS FUNCTION MAY SPONTANEOUSLY COMBUST IF YOU TOUCH THE WRONG THING */
-/* I AM PRETTY SURE THERE IS A METHOD TO MY MADNESS 								*/  
+/**
+ * @brief Splits a node and adds the new keys to the parent node
+ * @param p_node is the node to be slit
+ *
+ * @returns void
+ */ 								*/  
 void Btree::split_node(Node **p_node)
 {
 	int node_size = *p_node->get_vector_size();
