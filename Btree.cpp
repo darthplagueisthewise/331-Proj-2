@@ -127,6 +127,26 @@ void Btree::insert(const Record& p_record)
 	}
 }
 
+*Node Btree::searchforparent(Node* currNode, Node *childptr)
+{
+	if (currNode == nullptr)
+	{
+		return currNode;
+	}
+
+	for (Record rec : currNode->get_record_vector())
+	{
+		if (rec.get_child() != childptr)
+		{
+			return searchforparent(rec.get_child(), childptr);
+		}
+		else
+		{
+			return currNode;
+		}
+	}
+}
+
 void Btree::build_tree(vector<Record> p_vect)
 {
 	if (root != nullptr)
@@ -169,10 +189,23 @@ void Btree::split_node(Node **p_node)
 
 	/* Threes and Fours are now set */
 
-	Node *temp = *pnode;
-	vector<Record> nodeVec = *p_node->get_record_vector();
-	*p_node = new Node();
- 
+	//Node *temp = pnode;
+	vector<Record> nodeVec = p_node->get_record_vector();
+	//*p_node = new Node();
+ 	
+ 	// find parent node
+ 	if (p_node != root)
+ 	{
+		Node *parent_pointer = searchforparent(root, p_node);
+
+		// find specific record that points to our split node
+		Record *record_to_be_erased = parent_pointer->get_record(p_node);
+
+		// erase record
+		parent_pointer->erase_record(record_to_be_erased);
+	}
+
+
  	/* We are assuming the current root is already sorted 		*/
  	/* Create however many nodes of size 4 that we need 		*/ 
 	for (int i = 0; i < fours; ++i)
@@ -190,9 +223,9 @@ void Btree::split_node(Node **p_node)
 		string greatest_rec_str = greatest_rec->get_str();
 		
 		Record splitter(greatest_rec_num, greatest_rec_str, temp_ptr);
-		*pnode->add_record(splitter);
+		parent_pointer->add_record(splitter);
 
-		nodeVec.erase(nodeVec.begin(), nodeVec.begin()+4)
+		nodeVec.erase(nodeVec.begin(), nodeVec.begin()+4);
 	}
 
 	/* Create however many nodes of size 3 that we need 		*/
@@ -211,12 +244,12 @@ void Btree::split_node(Node **p_node)
 		string greatest_rec_str = greatest_rec->get_str();
 		
 		Record splitter(greatest_rec_num, greatest_rec_str, temp_ptr);
-		root->add_record(splitter);
+		parent_pointer->add_record(splitter);
 
 		nodeVec.erase(nodeVec.begin(), nodeVec.begin()+3);
 	}
 
-	if (*p_node->get_vector_size > order)
+	if (p_node->get_vector_size > order)
 	{
 		split_node(p_node);
 	}
