@@ -17,6 +17,9 @@
 
 #include <string>
 
+/*
+ * @brief This class stores data representing a record
+ */
 class Record
 {
 	private:
