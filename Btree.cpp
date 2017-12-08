@@ -135,12 +135,6 @@ void Btree::insert(const Record& p_record)
 	}
 }
 
-/**
- * @brief Given a node, this method returns a node pointer to it's parent node
- * @param currNode is the starting node from where the search begins
- * @param childptr is the node to find the parent of
- * @return A node pointer to the parent of childptr
- */
 *Node Btree::searchforparent(Node* currNode, Node *childptr)
 {
 	if (currNode == nullptr)
@@ -269,4 +263,25 @@ void Btree::split_node(Node *p_node)
 	}
 
 }
+
+void Btree::print_tree(Node *p_node)
+{
+	for (Record rec : p_node->get_record_vector())
+	{
+		cout << rec->get_str() << " ";	
+	}
+	cout << endl << endl;
+	
+	for (Record rec : p_node->get_record_vector())
+	{
+		if (rec.get_child() != NULL)
+		{
+			print_tree(rec.get_child());	
+		}
+	}
+}
+
+
+
+
 
