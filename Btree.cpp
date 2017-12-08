@@ -176,9 +176,9 @@ void Btree::build_tree(vector<Record> p_vect)
  *
  * @returns void
  */ 								*/  
-void Btree::split_node(Node **p_node)
+void Btree::split_node(Node *p_node)
 {
-	int node_size = *p_node->get_vector_size();
+	int node_size = p_node->get_vector_size();
 
 	/* 	
 		The code below does the following:
